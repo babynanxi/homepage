@@ -8,21 +8,19 @@
     <meta name="author" content="nanxi">
     <meta name="theme-color" content="#121212">
     <meta name="robots" content="index, follow">
-    <title>Deer - homepage</title>
+    <title>NanXi</title>
     
     <!-- 临时控制台清理脚本，可在调试完成后移除 -->
     <script>
         console.clear();
-        // 禁止缓存API请求
         fetch = ((originalFetch) => {
           return (...args) => {
             const [resource, config] = args;
-            // 为API URL添加时间戳参数，避免缓存
-            if (resource && resource.includes('api')) {
-              const url = new 网站(resource);
-              url.searchParams.append('_t', Date.now());
-              args[0] = url.toString();
-            }
+            if (resource && typeof resource === 'string' && resource.includes('api')) {
+                const url = new URL(resource, location.origin);
+                url.searchParams.append('_t', Date.now());
+                args[0] = url.toString();
+              }
             return originalFetch.apply(null, args);
           };
         })(fetch);
@@ -106,14 +104,14 @@
             <h2 class="section-title">关于我</h2>
             <div class="about-content">
                 <div class="about-avatar">
-                    <img src="assets/img/logo.png" alt="个人头像" width="200" height="200" loading="lazy">
+                    <img src="assets/img/nanxi.png" alt="个人头像" width="200" height="200" loading="lazy">
                     <div class="social-links about-social">
-                        <a href="https://github.com/deerwan" target="_blank" rel="noopener" aria-label="GitHub主页">
+                        <a href="https://github.com/babynanxi" target="_blank" rel="noopener" aria-label="GitHub主页">
                             <i class="fab fa-github" aria-hidden="true"></i>
                         </a>
-                        <a href="https://" target="_blank" rel="noopener" aria-label="博客">
+                       <!--<a href="https://" target="_blank" rel="noopener" aria-label="博客">
                             <i class="fas fa-blog" aria-hidden="true"></i>
-                        </a>
+                        </a>--> 
                         <a href="mailto:nanxi@nanxi.tech" rel="noopener noreferrer" aria-label="发送邮件">
                             <i class="fas fa-envelope" aria-hidden="true"></i>
                         </a>
@@ -128,21 +126,21 @@
                 <div class="about-info">
                     <h3>个人简介 🦌</h3>
                     <p>欢迎来到我的个人主页!</p>
-                    <div style="margin: 1.5rem 0;">
+                    <!--<div style="margin: 1.5rem 0;">
                         <h3>生活碎片 📷</h3>
                         <a href="https://" class="nav-item" rel="noopener" target="_blank" style="display:inline-flex; margin-top:0.5rem;">旅行日记</a>
-                    </div>
+                    </div>-->
                     <h3>技能标签 💻</h3>
                     <div class="skill-tags" aria-label="我的技能">
                         <span class="skill-tag">HTML/CSS</span>
                         <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag"></span>
-                        <span class="skill-tag"></span>
-                        <span class="skill-tag"></span>
+                        <span class="skill-tag">Blender</span>
+                        <span class="skill-tag">Pr Ps</span>
+                        <span class="skill-tag">Osmo Pocket 3</span>
                     </div>
                     
                     <h3>兴趣爱好 🎈</h3>
-                    <p>编程、阅读、摄影、旅行</p>
+                    <p>编程、摄影、旅行、COPY、DIY、3D打印</p>
                 </div>
             </div>
         </div>
@@ -458,7 +456,7 @@
         type="playlist"
         id="8417796623"
         fixed="true"
-        autoplay="true"
+        autoplay="false" 
         order="random"
         theme="#4a89dc"
         loop="all"

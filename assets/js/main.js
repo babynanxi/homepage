@@ -2,7 +2,7 @@
 const CONFIG = {
     BING_WALLPAPER_URL: 'https://api.imlazy.ink/img', // 壁纸API
     BING_FALLBACK_URL: 'https://img.nanxi.tech/file/1755239756606_o8AiA01CiKLiAPierbIAquAD2pgf3l9OABJEcB_tplv-dy-aweme-images_q75.webp', // 备用壁纸API
-    HITOKOTO_API: 'https://v.api.aa1.cn/api/yiyan/index.php', // 新一言API
+    HITOKOTO_API: 'https://v1.hitokoto.cn/', // hitokoto一言API
     FRIEND_LINK_API: 'https://home-push-friend-link.952780.xyz/' // 友链推送API地址
 };
 
@@ -64,7 +64,7 @@ function getBingWallpaper() {
     };
     
     img.onerror = () => {
-        console.error('获取必应壁纸失败，尝试备用API');
+        console.error('获取壁纸失败，尝试备用API');
         tryFallbackWallpaper();
     };
 
@@ -75,7 +75,7 @@ function getBingWallpaper() {
     // 设置超时，5秒后如果图片还未加载则尝试备用
     setTimeout(() => {
         if (!img.complete) {
-            console.warn('获取必应壁纸超时，尝试备用API');
+            console.warn('获取壁纸超时，尝试备用API');
             tryFallbackWallpaper();
         }
     }, 5000);
@@ -106,39 +106,38 @@ function tryFallbackWallpaper() {
     }, 3000);
 }
 
-// 已删除未使用的setBackground函数
-
 // 获取一言
 async function getHitokoto() {
     try {
         // 创建一个超时控制
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3000); // 3秒超时
-        
+
         // 直接使用fetch请求新API
         const response = await fetch(CONFIG.HITOKOTO_API, {
             signal: controller.signal
         });
         clearTimeout(timeoutId);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        const text = await response.text();
-        
+
+        // 解析JSON
+        const data = await response.json();
+
         // 添加淡入效果
         const hitokotoText = document.querySelector('.hitokoto-text');
         const hitokotoFrom = document.querySelector('.hitokoto-from');
-        
+
         // 设置透明度为0
         hitokotoText.style.opacity = '0';
         hitokotoFrom.style.opacity = '0';
-        
-        // 更新文本内容 - 新API直接返回文本
-        hitokotoText.textContent = text.trim();
-        hitokotoFrom.textContent = '- [每日一言]';
-        
+
+        // 更新文本内容
+        hitokotoText.textContent = data.hitokoto || '获取失败';
+        hitokotoFrom.textContent = data.from ? `- [${data.from}]` : '- [未知]';
+
         // 使用setTimeout实现淡入效果
         setTimeout(() => {
             hitokotoText.style.transition = 'opacity 0.8s ease';
@@ -146,7 +145,7 @@ async function getHitokoto() {
             hitokotoText.style.opacity = '1';
             hitokotoFrom.style.opacity = '1';
         }, 100);
-        
+
     } catch (error) {
         console.error('获取一言失败:', error);
         fallbackHitokoto();
