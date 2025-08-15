@@ -12,7 +12,7 @@ function corsResponse(body, status = 200) {
   return new Response(body, {
     status,
     headers: {
-      "Access-Control-Allow-Origin": "*", // 推荐上线时改为你的前端域名
+      "Access-Control-Allow-Origin": "nanxi.tech", // 推荐上线时改为你的前端域名
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type"
     }
@@ -20,17 +20,17 @@ function corsResponse(body, status = 200) {
 }
 
 export default {
-  async fetch(request, env, ctx) {
-    if (request.method === "OPTIONS") {
+  async fetch(请求, env, ctx) {
+    if (请求.method === "OPTIONS") {
       // 处理预检请求
       return corsResponse(null, 204);
     }
-    if (request.method !== 'POST') {
+    if (请求.method !== 'POST') {
       return corsResponse('Method Not Allowed', 405);
     }
     let data;
     try {
-      data = await request.json();
+      data = await 请求.json();
     } catch {
       return corsResponse('Invalid JSON', 400);
     }
