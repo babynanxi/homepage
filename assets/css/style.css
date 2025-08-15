@@ -558,10 +558,10 @@ body::before {
         width: 50%;
     }
     
-    .nav-item.active {
+   /* .nav-item.active {*/
         /* 移除底部边框宽度 */
         /* border-bottom-width: 2px; */
-    }
+    /*}*/
     
     /* 调整移动端间距 */
     .content {

@@ -1,6 +1,8 @@
 // 配置信息，统一管理所有API和服务端地址
 const CONFIG = {
-    BING_WALLPAPER_URL: 'https://api.imlazy.ink/img', // 壁纸API
+    BING_WALLPAPER_URL: window.innerWidth <= 600 
+        ? 'https://api.imlazy.ink/img-phone' 
+        : 'https://api.imlazy.ink/img', // 手机端用 img-phone
     BING_FALLBACK_URL: 'https://img.nanxi.tech/file/1755239756606_o8AiA01CiKLiAPierbIAquAD2pgf3l9OABJEcB_tplv-dy-aweme-images_q75.webp', // 备用壁纸API
     HITOKOTO_API: 'https://v1.hitokoto.cn/', // hitokoto一言API
     FRIEND_LINK_API: 'https://home-push-friend-link.952780.xyz/' // 友链推送API地址
