@@ -1,7 +1,7 @@
 {
-  "name": "Deer个人主页",
-  "short_name": "Deer",
-  "description": "Deer的个人主页，展示个人作品、博客和联系方式",
+  "name": "NanXi个人主页",
+  "short_name": "NanXi",
+  "description": "NanXi的个人主页，展示个人作品、博客和联系方式",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#121212",
