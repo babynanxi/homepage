@@ -108,39 +108,32 @@ function tryFallbackWallpaper() {
     }, 3000);
 }
 
+let lastHitokotoTime = 0;
+
 // 获取一言
 async function getHitokoto() {
     try {
-        // 创建一个超时控制
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3秒超时
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-        // 直接使用fetch请求新API
         const response = await fetch(CONFIG.HITOKOTO_API, {
             signal: controller.signal
         });
         clearTimeout(timeoutId);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        // 解析JSON
         const data = await response.json();
 
-        // 添加淡入效果
         const hitokotoText = document.querySelector('.hitokoto-text');
         const hitokotoFrom = document.querySelector('.hitokoto-from');
 
-        // 设置透明度为0
         hitokotoText.style.opacity = '0';
         hitokotoFrom.style.opacity = '0';
 
-        // 更新文本内容
         hitokotoText.textContent = data.hitokoto || '获取失败';
         hitokotoFrom.textContent = data.from ? `- [${data.from}]` : '- [未知]';
 
-        // 使用setTimeout实现淡入效果
         setTimeout(() => {
             hitokotoText.style.transition = 'opacity 0.8s ease';
             hitokotoFrom.style.transition = 'opacity 0.8s ease';
@@ -148,6 +141,7 @@ async function getHitokoto() {
             hitokotoFrom.style.opacity = '1';
         }, 100);
 
+        lastHitokotoTime = Date.now();
     } catch (error) {
         console.error('获取一言失败:', error);
         fallbackHitokoto();
@@ -269,6 +263,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     document.addEventListener('click', tryPlay);
     document.addEventListener('touchstart', tryPlay);
+
+    // 一言点击刷新（10秒限制）
+    const hitokotoDiv = document.querySelector('.hitokoto');
+    if (hitokotoDiv) {
+        hitokotoDiv.style.cursor = 'pointer';
+        hitokotoDiv.addEventListener('click', function () {
+            const now = Date.now();
+            if (now - lastHitokotoTime < 10000) {
+                // 可选：给用户一个反馈
+                hitokotoDiv.title = '请稍后再试（10秒内仅可刷新一次）';
+                hitokotoDiv.style.opacity = '0.5';
+                setTimeout(() => {
+                    hitokotoDiv.title = '点击可刷新一言';
+                    hitokotoDiv.style.opacity = '1';
+                }, 1000);
+                return;
+            }
+            getHitokoto();
+        });
+    }
 });
 
 // 从 index.html 移动过来的函数
