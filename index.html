@@ -39,7 +39,7 @@
     <link rel="manifest" href="/manifest.json">
     
     <!-- 资源预加载和预连接 -->
-    <link rel="preload" href="https://v.api.aa1.cn/api/yiyan/index.php" as="fetch" crossorigin>
+    <link rel="preload" href="https://v1.hitokoto.cn/" as="fetch" crossorigin>
     <link rel="preconnect" href="https://v.api.aa1.cn">
     <link rel="preconnect" href="https://bing.img.run">
     <link rel="dns-prefetch" href="https://v.api.aa1.cn">
@@ -64,9 +64,16 @@
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"></noscript>
     
     
-    <link rel="preload" href="/assets/fonts/NotoSansSC-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="/assets/fonts/NotoSansSC-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="/assets/fonts/zihun.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <!--<link rel="preload" href="/assets/fonts/zihungaobai.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/assets/fonts/zihunshuiyun.woff2 as="font" type="font/woff2" crossorigin="anonymous">-->
+    <link rel="preload" href="https://img.nanxi.tech/file/1755344862680_zihunshuiyun.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="https://img.nanxi.tech/file/1755344862680_zihungaobai.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" 
+        crossorigin="anonymous">
+    </script>
+
 </head>
 <body>
 <div id="global-loading">
@@ -436,14 +443,13 @@
     <!-- 结构化数据 -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
+      "@context": "https://nanxi.tech",
       "@type": "Person",
-      "name": "Deer",
-      "url": "https://lllh.de",
+      "name": "NanXi",
+      "url": "https://nanxi.tech",
       "image": "/assets/img/logo.png",
       "sameAs": [
         "https://github.com/babynanxi",
-        "https://deerwan.github.io"
       ],
       "jobTitle": "开发者",
       "knowsAbout": ["Web开发", "前端技术", "JavaScript", "React", "Node.js", "Python"]
@@ -471,9 +477,8 @@
     <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
     <!-- MetingJS（支持网易云等歌单，需在APlayer后引入） -->
     <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-    
-    <!-- Giscus 评论系统已在留言板部分实现，此处移除重复代码 -->
-    <script>
+
+<script>
   // 建站时间：2025/8/15 12:00
   (function () {
     const start = new Date('2025-08-15T12:00:00');

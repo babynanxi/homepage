@@ -287,14 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('theme');
     setTheme(savedTheme || detectSystemTheme());
 
-    // 主题切换按钮
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-            const current = document.documentElement.getAttribute('data-theme');
-            setTheme(current === 'light' ? 'dark' : 'light');
-        });
-    }
 });
 
 // 从 index.html 移动过来的函数
