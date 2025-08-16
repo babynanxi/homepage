@@ -271,7 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
         hitokotoDiv.addEventListener('click', function () {
             const now = Date.now();
             if (now - lastHitokotoTime < 10000) {
-                // 可选：给用户一个反馈
                 hitokotoDiv.title = '请稍后再试（10秒内仅可刷新一次）';
                 hitokotoDiv.style.opacity = '0.5';
                 setTimeout(() => {
@@ -281,6 +280,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             getHitokoto();
+        });
+    }
+
+    // 初始化主题
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme || detectSystemTheme());
+
+    // 主题切换按钮
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'light' ? 'dark' : 'light');
         });
     }
 });
@@ -348,3 +360,17 @@ document.addEventListener('click', function(e) {
   // 空白处
   playSound(soundBlank);
 });
+
+// 主题切换
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    // 切换按钮图标
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = theme === 'light' ? '☀️' : '🌙';
+}
+
+// 自动检测系统主题
+function detectSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
