@@ -17,7 +17,7 @@
           return (...args) => {
             const [resource, config] = args;
             if (resource && typeof resource === 'string' && resource.includes('api')) {
-                const url = new URL(resource, location.origin);
+                const url = new 网站(resource, location.origin);
                 url.searchParams.append('_t', Date.now());
                 args[0] = url.toString();
               }
@@ -293,11 +293,11 @@
                                 <div class="nav-desc">图床</div>
                             </div>
                         </a>
-                        <a class="nav-link-item" href="https://" target="_blank" rel="noopener">
+                        <a class="nav-link-item" href="https://it-tools.tech/url-parser" target="_blank" rel="noopener">
                             <span class="nav-icon emoji-icon">📋</span>
                             <div>
-                                <div class="nav-name">card-tab</div>
-                                <div class="nav-desc">导航卡片管理</div>
+                                <div class="nav-name">IT-Tools</div>
+                                <div class="nav-desc">IT工具箱</div>
                             </div>
                         </a>
                         <a class="nav-link-item" href="https://ssh.cmliussss.net/" target="_blank" rel="noopener">
